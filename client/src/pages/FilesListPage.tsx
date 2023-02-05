@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {getFiles} from "../http/filesAPI";
 import {Link} from "react-router-dom";
+import AddFileInput from "../components/FileListPage/AddFileInput";
 
 
 const FilesListPage = () => {
@@ -12,10 +13,7 @@ const FilesListPage = () => {
 
     return (
         <div>
-            <label>
-                Добавить файл
-                <input type="file"/>
-            </label>
+            <AddFileInput />
             <ul>
                 {files.map(filename =>
                     <li key={filename}>
