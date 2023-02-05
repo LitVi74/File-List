@@ -1,14 +1,14 @@
 import {useEffect, useState} from "react";
+import {getFiles} from "../http/filesAPI";
+import {Link} from "react-router-dom";
 
 
 const FilesListPage = () => {
-    const [files, setFiles] = useState<string[]>([
-        'text1.txt',
-        'text2.txt',
-        'text3.txt'
-    ]);
+    const [files, setFiles] = useState<string[]>([]);
 
-
+    useEffect(() => {
+        getFiles().then(data => setFiles(data.filesNames))
+    }, [])
 
     return (
         <div>
@@ -19,7 +19,7 @@ const FilesListPage = () => {
             <ul>
                 {files.map(filename =>
                     <li key={filename}>
-                        {filename}
+                        <Link to={filename}>{filename}</Link>
                         <button>
                             Сохранить
                         </button>
