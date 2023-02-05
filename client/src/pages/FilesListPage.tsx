@@ -1,23 +1,25 @@
-import {useEffect, useState} from "react";
-import {getFiles} from "../http/filesAPI";
+import {useEffect} from "react";
 import {Link} from "react-router-dom";
 import AddFileInput from "../components/FileListPage/AddFileInput";
+import {useAppDispatch, useAppSelector} from "../hooks/redux";
+import {getFiles} from "../store/http/filesAPI";
 
 
 const FilesListPage = () => {
-    const [files, setFiles] = useState<string[]>([]);
+    const dispatch = useAppDispatch();
+    const files = useAppSelector(state => state.files.files);
 
     useEffect(() => {
-        getFiles().then(data => setFiles(data.filesNames))
+        dispatch(getFiles())
     }, [])
 
     return (
         <div>
             <AddFileInput />
             <ul>
-                {files.map(filename =>
-                    <li key={filename}>
-                        <Link to={filename}>{filename}</Link>
+                {files.map((file) =>
+                    <li key={file.name}>
+                        <Link to={file.name}>{file.name}</Link>
                         <button>
                             Сохранить
                         </button>

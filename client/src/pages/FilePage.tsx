@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {getOneFile} from "../http/filesAPI";
+import {getOneFile} from "../store/http/filesAPI";
 import {useParams} from "react-router-dom";
 
 const FilePage = () => {

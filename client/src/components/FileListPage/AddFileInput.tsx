@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import {uploadFile} from "../../http/filesAPI";
+import {uploadFile} from "../../store/http/filesAPI";
 
 const AddFileInput = () => {
 

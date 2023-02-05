@@ -1,8 +1,15 @@
 import {$host} from "./index";
+import {AppDispatch} from "../index";
+import {filesFetchingSuccess} from "../fileSlice";
 
-export const getFiles = async () => {
-    const {data} = await $host.get('api/files/');
-    return data as unknown as {filesNames: string[]};
+type FilesDataType = Array<{
+    name: string;
+    content: string;
+}>
+
+export const getFiles = () => async (dispatch: AppDispatch) => {
+    const {data} = await $host.get<FilesDataType>('api/files/');
+    dispatch(filesFetchingSuccess(data))
 }
 
 export const getOneFile = async (fileName: string) => {

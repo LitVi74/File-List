@@ -7,11 +7,21 @@ const base = './files/';
 class FilesController {
     async getAllFiles (req, res) {
         let files = fs.readdirSync(base);
+
+        let data = files.map(file => {
+            let fileContent = fs.readFileSync(base + file, "utf8");
+
+            return {
+                name: file,
+                content: fileContent,
+            }
+        })
+
         res.setHeader(
             "Access-Control-Allow-Origin",
             "http://localhost:3000"
         );
-        res.json({filesNames: files});
+        res.json(data);
     }
 
     async getOneFile (req, res) {
