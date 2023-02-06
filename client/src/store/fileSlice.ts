@@ -25,15 +25,16 @@ const FileSlice = createSlice({
             state,
             action:PayloadAction<File>
         ) => {
+            if(state.files.find(file => file.name = action.payload.name))
+                return
+
             let fileReader = new FileReader();
             fileReader.readAsText(action.payload);
-            let setFiles = new Set<IFile>(state.files);
-            setFiles.add({
+
+            state.files.push({
                 name: action.payload.name,
                 content: fileReader.result as string,
-            })
-
-            state.files = Array.from(setFiles);
+            });
         }
     }
 })
