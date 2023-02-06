@@ -1,7 +1,9 @@
 import React, {useCallback} from 'react';
 import {uploadFile} from "../../store/http/filesAPI";
+import {useAppDispatch} from "../../hooks/redux";
 
 const AddFileInput = () => {
+    const dispatch = useAppDispatch();
 
     const handeChangeInput = useCallback((event: React.FormEvent<HTMLInputElement>) => {
         if (!event.currentTarget.files) return;
@@ -9,11 +11,7 @@ const AddFileInput = () => {
         const files = [...Array.from(event.currentTarget.files)];
 
         files.forEach(file => {
-            const formData = new FormData();
-            formData.append('file', file)
-
-            uploadFile(formData);
-            console.log(formData)
+            dispatch(uploadFile(file));
         })
     }, [])
 

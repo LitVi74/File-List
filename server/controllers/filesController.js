@@ -56,6 +56,25 @@ class FilesController {
             return res.status(500).json({message: "Upload file error"});
         }
     }
+
+    async downloadFile (req, res) {
+        try {
+            let filename = req.query.filename.toString();
+
+            res.setHeader(
+                "Access-Control-Allow-Origin",
+                "http://localhost:3000"
+            );
+            return res.download(base + filename, filename)
+        }catch (e) {
+            console.log(e);
+            res.setHeader(
+                "Access-Control-Allow-Origin",
+                "http://localhost:3000"
+            );
+            return res.status(500).json({message: "Download file error"});
+        }
+    }
 }
 
 module.exports = new FilesController();

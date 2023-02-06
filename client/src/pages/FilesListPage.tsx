@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import AddFileInput from "../components/FileListPage/AddFileInput";
 import {useAppDispatch, useAppSelector} from "../hooks/redux";
 import {getFiles} from "../store/http/filesAPI";
+import SaveFileButton from "../components/FileListPage/SaveFileButton";
 
 
 const FilesListPage = () => {
@@ -20,9 +21,7 @@ const FilesListPage = () => {
                 {files.map((file) =>
                     <li key={file.name}>
                         <Link to={file.name}>{file.name}</Link>
-                        <button>
-                            Сохранить
-                        </button>
+                        <SaveFileButton filename={file.name} />
                         <button>
                             Удалить
                         </button>
