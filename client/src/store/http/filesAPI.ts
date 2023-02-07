@@ -12,11 +12,6 @@ export const getFiles = () => async (dispatch: AppDispatch) => {
     dispatch(filesFetchingSuccess(data))
 }
 
-export const getOneFile = async (fileName: string) => {
-    const {data} = await $host.get('/api/files/' + fileName);
-    return data as unknown as {fileContent: string};
-}
-
 export  const uploadFile = (file: File) => async (dispatch: AppDispatch)  => {
     dispatch(filesUpdating(file));
 

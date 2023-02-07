@@ -24,19 +24,6 @@ class FilesController {
         res.json(data);
     }
 
-    async getOneFile (req, res) {
-        const {filename} = req.params;
-        let fileContent = fs.readFileSync(base + filename, "utf8");
-
-        res.setHeader(
-            "Access-Control-Allow-Origin",
-            "http://localhost:3000"
-        );
-        res.json({
-            fileContent,
-        });
-    }
-
     async uploadFile (req, res) {
         try {
             const file = req.file;
