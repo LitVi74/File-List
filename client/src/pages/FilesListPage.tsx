@@ -4,6 +4,7 @@ import AddFileInput from "../components/FileListPage/AddFileInput";
 import {useAppDispatch, useAppSelector} from "../hooks/redux";
 import {getFiles} from "../store/http/filesAPI";
 import SaveFileButton from "../components/FileListPage/SaveFileButton";
+import RemoveFileButton from "../components/FileListPage/RemoveFileButton";
 
 
 const FilesListPage = () => {
@@ -22,9 +23,7 @@ const FilesListPage = () => {
                     <li key={file.name}>
                         <Link to={file.name}>{file.name}</Link>
                         <SaveFileButton filename={file.name} />
-                        <button>
-                            Удалить
-                        </button>
+                        <RemoveFileButton filename={file.name} />
                     </li>
                 )}
             </ul>

@@ -35,6 +35,14 @@ const FileSlice = createSlice({
                 name: action.payload.name,
                 content: fileReader.result as string,
             });
+        },
+        fileRemoving: (
+            state,
+            action:PayloadAction<string>
+        ) =>{
+            const files = state.files
+                .filter(file => file.name != action.payload);
+            state.files = files;
         }
     }
 })
@@ -42,6 +50,10 @@ const FileSlice = createSlice({
 export const selectFileByName = (filename: string) => (state: RootState) =>
     state.files.files.find(file => file.name == filename)
 
-export const { filesFetchingSuccess, filesUpdating } = FileSlice.actions;
+export const {
+    filesFetchingSuccess,
+    filesUpdating,
+    fileRemoving,
+} = FileSlice.actions;
 
 export default FileSlice.reducer;
