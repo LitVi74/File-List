@@ -43,6 +43,20 @@ const FileSlice = createSlice({
             const files = state.files
                 .filter(file => file.name != action.payload);
             state.files = files;
+        },
+        fileContentChanging: (
+            state,
+            action:PayloadAction<IFile>
+        ) => {
+            state.files = state.files
+                .map(file => {
+                    if(file.name !== action.payload.name) return file;
+
+                    return {
+                        name: file.name,
+                        content:  action.payload.content
+                    };
+                })
         }
     }
 })
@@ -54,6 +68,7 @@ export const {
     filesFetchingSuccess,
     filesUpdating,
     fileRemoving,
+    fileContentChanging,
 } = FileSlice.actions;
 
 export default FileSlice.reducer;
