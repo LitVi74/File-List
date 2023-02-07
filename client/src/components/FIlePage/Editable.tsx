@@ -1,15 +1,18 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
+import HightlightByText from "./HightlightByText";
 
 interface IEditable {
     isEditingProps?: boolean,
     value?: string,
-    callback?: (value: string) => void
+    callback?: (value: string) => void,
+    filter?: string;
 }
 
 const Editable = ({
     isEditingProps = false,
     value = "",
-    callback
+    callback,
+    filter
 }: IEditable) => {
     const [isEditing, setEditing] = useState<boolean>(isEditingProps);
     const [textareaValue, setTextareaValue] = useState<string>(value);
@@ -18,6 +21,8 @@ const Editable = ({
         setEditing(!isEditing)
         callback?.(textareaValue);
     },[textareaValue])
+
+    useEffect(() => console.log(filter), [filter])
 
     return (
         <>
@@ -32,8 +37,9 @@ const Editable = ({
                 </div>
             ): (
                 <div
-                    onClick={() => setEditing(!isEditing)}>
-                    <p>{textareaValue}</p>
+                    onClick={() => setEditing(!isEditing)}
+                >
+                    <HightlightByText filter={filter} text={value}/>
                 </div>
         )}
         </>
