@@ -25,7 +25,7 @@ export  const uploadFile = (file: File) => async (dispatch: AppDispatch)  => {
 }
 
 export const downloadFile = async (fileName: string) => {
-    const  response = await fetch("api/files/download?filename=" + fileName);
+    const  response = await fetch("http://localhost:8080/api/files/download?filename=" + fileName);
 
     if (response.status === 200) {
         const blob = await response.blob();

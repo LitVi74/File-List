@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {fileRemoving, selectFileByName} from "../../store/fileSlice";
+import {useAppDispatch} from "../../hooks/redux";
+import {fileRemoving} from "../../store/fileSlice";
 
 interface ISaveFileButtonProps {
     filename: string;
