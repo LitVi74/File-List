@@ -1,6 +1,7 @@
 import {$host} from "./index";
 import {AppDispatch} from "../index";
 import {filesFetchingSuccess, filesUpdating} from "../fileSlice";
+import {IFile} from "../../types/filesTypes";
 
 type FilesDataType = Array<{
     name: string;
@@ -12,16 +13,18 @@ export const getFiles = () => async (dispatch: AppDispatch) => {
     dispatch(filesFetchingSuccess(data))
 }
 
-export  const uploadFile = (file: File) => async (dispatch: AppDispatch)  => {
-    dispatch(filesUpdating(file));
+export  const uploadFile = (file: File) => {
+    return async (dispatch: AppDispatch) => {
+        const formData = new FormData();
+        formData.append('file', file)
 
-    const formData = new FormData();
-    formData.append('file', file)
-
-    $host.post(
-        '/api/files/upload/',
-        formData
-    );
+        $host.post<IFile>(
+            '/api/files/upload/',
+            formData
+        ).then(({data}) => {
+            dispatch(filesUpdating(data))
+        });
+    };
 }
 
 export const downloadFile = async (fileName: string) => {

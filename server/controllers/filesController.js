@@ -27,12 +27,16 @@ class FilesController {
     async uploadFile (req, res) {
         try {
             const file = req.file;
+            const fileContent = fs.readFileSync(base + file.originalname, "utf8");
 
             res.setHeader(
                 "Access-Control-Allow-Origin",
                 "http://localhost:3000"
             );
-            return res.status(200).json({message: "ok"});
+            return res.status(200).json({
+                name: file.originalname,
+                content: fileContent,
+            });
 
         }catch (e) {
             console.log(e);

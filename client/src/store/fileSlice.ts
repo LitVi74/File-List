@@ -1,5 +1,4 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {getFiles} from "./http/filesAPI";
 import {IFile} from "../types/filesTypes";
 import {RootState} from "./index";
 
@@ -17,44 +16,46 @@ const FileSlice = createSlice({
     reducers: {
         filesFetchingSuccess: (
             state,
-            action:PayloadAction<Array<IFile>>
+            action: PayloadAction<Array<IFile>>
         ) => {
             state.files = action.payload
         },
         filesUpdating: (
             state,
-            action:PayloadAction<File>
+            action: PayloadAction<IFile>
         ) => {
-            if(state.files.find(file => file.name = action.payload.name))
-                return
+            const newFiles = [...state.files]
 
-            let fileReader = new FileReader();
-            fileReader.readAsText(action.payload);
+            if (newFiles.indexOf(action.payload) === -1){
+                newFiles.push(
+                    {
+                        name: action.payload.name,
+                        content: action.payload.content
+                    }
+                );
+            }
 
-            state.files.push({
-                name: action.payload.name,
-                content: fileReader.result as string,
-            });
+            state.files = newFiles;
         },
         fileRemoving: (
             state,
-            action:PayloadAction<string>
-        ) =>{
+            action: PayloadAction<string>
+        ) => {
             const files = state.files
                 .filter(file => file.name != action.payload);
             state.files = files;
         },
         fileContentChanging: (
             state,
-            action:PayloadAction<IFile>
+            action: PayloadAction<IFile>
         ) => {
             state.files = state.files
                 .map(file => {
-                    if(file.name !== action.payload.name) return file;
+                    if (file.name !== action.payload.name) return file;
 
                     return {
                         name: file.name,
-                        content:  action.payload.content
+                        content: action.payload.content
                     };
                 })
         }
