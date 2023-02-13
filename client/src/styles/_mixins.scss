@@ -1,0 +1,23 @@
+@use "./colors";
+
+@mixin borderRadius($br) {
+  border-radius: $br;
+  -moz-border-radius: $br;
+  -webkit-border-radius: $br;
+  -khtml-border-radius: $br;
+  -o-border-radius: $br;
+  -ms-border-radius: $br;
+  -icab-border-radius: $br;
+}
+
+@mixin hoverBackground() {
+  &:hover {
+    background-color: colors.$thirdColor;
+    cursor: pointer;
+  }
+}
+
+@mixin backgroundImage($imageName) {
+  background: url("./res/" + $imageName) center no-repeat;
+  background-size: contain;
+}

@@ -1,6 +1,4 @@
 import React, {useCallback} from 'react';
-import {useAppSelector} from "../../hooks/redux";
-import {selectFileByName} from "../../store/fileSlice";
 import {downloadFile} from "../../store/http/filesAPI";
 
 interface ISaveFileButtonProps {
@@ -15,9 +13,7 @@ const SaveFileButton = ({filename}: ISaveFileButtonProps) => {
     }, [filename])
 
     return (
-        <button onClick={handleButtonClick}>
-            Сохранить
-        </button>
+        <button className="button button__download" onClick={handleButtonClick} />
     );
 };
 

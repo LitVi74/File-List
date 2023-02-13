@@ -7,7 +7,7 @@ export const routes = [
         Component: FilesListPage,
     },
     {
-        path: '/' + '/:file_name',
+        path: '/:file_name',
         Component: FilePage,
     },
 ]

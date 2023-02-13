@@ -1,11 +1,11 @@
-import {useEffect} from "react";
-import {Link} from "react-router-dom";
+import React, {useEffect} from "react";
 import AddFileInput from "../components/FileListPage/AddFileInput";
 import {useAppDispatch, useAppSelector} from "../hooks/redux";
 import {getFiles} from "../store/http/filesAPI";
-import SaveFileButton from "../components/FileListPage/SaveFileButton";
-import RemoveFileButton from "../components/FileListPage/RemoveFileButton";
 
+import "../styles/FileListPage/FileListPage.scss";
+import Title from "../components/Title";
+import FileItem from "../components/FileListPage/FileItem";
 
 const FilesListPage = () => {
     const dispatch = useAppDispatch();
@@ -13,21 +13,18 @@ const FilesListPage = () => {
 
     useEffect(() => {
         dispatch(getFiles())
-    }, [])
+    }, [dispatch])
 
     return (
-        <div>
+        <section className="main_section">
+            <Title titleClass="title" titleText="File List" />
             <AddFileInput />
-            <ul>
+            <ul className="file_list">
                 {files.map((file) =>
-                    <li key={file.name}>
-                        <Link to={file.name}>{file.name}</Link>
-                        <SaveFileButton filename={file.name} />
-                        <RemoveFileButton filename={file.name} />
-                    </li>
+                    <FileItem key={file.name} filename={file.name}/>
                 )}
             </ul>
-        </div>
+        </section>
     );
 };
 

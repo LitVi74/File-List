@@ -1,0 +1,92 @@
+@use '../colors';
+@use '../fonts';
+@use '../mixins';
+
+.main_section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 4rem;
+
+  font-family: fonts.$mainFont;
+  color: colors.$secondColor;
+}
+
+.title {
+  font-size: 3em;
+  margin-bottom: 1rem;
+}
+
+#add_file_input {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.add_file_label {
+  width: min(70vw, 40rem);
+  padding: .5rem;
+  margin-bottom: 1rem;
+
+  border: 1px solid colors.$secondColor;
+  @include mixins.borderRadius(.5em);
+
+  text-align: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.file_list {
+  width: min(60vw, 30rem);
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: .5em;
+
+  list-style: none;
+}
+
+.file_item {
+  display: flex;
+  gap: .25em;
+  align-items: center;
+}
+
+.file_link {
+  display: block;
+
+  flex-grow: 1;
+  padding: .5em 1.5em;
+
+  color: colors.$secondColor;
+  text-decoration: none;
+
+  background-color: colors.$mineColor;
+  border: 1px solid colors.$secondColor;
+  border-left: .5em solid colors.$secondColor;
+  @include mixins.borderRadius(.5em);
+  @include mixins.hoverBackground;
+}
+
+.button {
+  width: 2.5em;
+  height: 2.5em;
+
+  background-color: colors.$mineColor;
+  border: 1px solid colors.$secondColor;
+  @include mixins.borderRadius(.5em);
+  @include mixins.hoverBackground;
+
+  &__download {
+    @include mixins.backgroundImage("download-icon.png")
+  }
+
+  &__remove {
+    @include mixins.backgroundImage("remove-icon.png")
+  }
+}
+

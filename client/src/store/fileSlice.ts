@@ -42,7 +42,7 @@ const FileSlice = createSlice({
             action: PayloadAction<string>
         ) => {
             const files = state.files
-                .filter(file => file.name != action.payload);
+                .filter(file => file.name !== action.payload);
             state.files = files;
         },
         fileContentChanging: (
@@ -63,7 +63,7 @@ const FileSlice = createSlice({
 })
 
 export const selectFileByName = (filename: string) => (state: RootState) =>
-    state.files.files.find(file => file.name == filename)
+    state.files.files.find(file => file.name === filename)
 
 export const {
     filesFetchingSuccess,

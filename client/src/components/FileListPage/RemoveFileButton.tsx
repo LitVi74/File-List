@@ -11,12 +11,10 @@ const RemoveFileButton = ({filename}: ISaveFileButtonProps) => {
 
     const handleButtonClick = useCallback(() =>{
         dispatch(fileRemoving(filename));
-    }, [filename])
+    }, [filename, dispatch])
 
     return (
-        <button onClick={handleButtonClick}>
-            Удалить
-        </button>
+        <button className="button button__remove" onClick={handleButtonClick} />
     );
 };
 
