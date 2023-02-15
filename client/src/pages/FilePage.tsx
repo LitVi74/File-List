@@ -3,6 +3,10 @@ import {useAppDispatch, useAppSelector} from "../hooks/redux";
 import {fileContentChanging, selectFileByName} from "../store/fileSlice";
 import Editable from "../components/FIlePage/Editable";
 import React, {useCallback, useState} from "react";
+import HightlightByText from "../components/FIlePage/HightlightByText";
+import Title from "../components/Title";
+
+import "../styles/FilePage/FilePage.scss";
 
 const FilePage = () => {
     const {file_name} = useParams();
@@ -16,23 +20,31 @@ const FilePage = () => {
             name: file_name ?? '',
             content: newContent
         }))
-    }, [file_name])
+    }, [file_name, dispatch])
 
     const handleInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setFilter(event.currentTarget.value);
     }, [])
 
     return (
-        <div>
+        <section className="main_section">
+            <Title titleText={file?.name ?? 'Name'} titleClass="title" />
             <input
+                className="search_input"
                 type="text"
-                placeholder="Поиск по тексту"
+                placeholder="Text search"
                 value={filter}
                 onChange={handleInputChange}
             />
-            <h1>{file?.name ?? 'Name'}</h1>
-            <Editable value={file?.content} callback={handleFileContentChange} filter={filter} />
-        </div>
+            <Editable
+                value={file?.content}
+                callback={handleFileContentChange}
+                textClassName="file_content"
+                textAreaClassName="file_content__editing"
+            >
+                <HightlightByText className="searched_text" filter={filter} text={file?.content}/>
+            </Editable>
+        </section>
     );
 };
 

@@ -1,11 +1,16 @@
 interface IHightlightByText {
     filter?: string,
     text?: string,
+    className?: string,
 }
 
-const HightlightByText= ({filter, text}: IHightlightByText) => {
+const HightlightByText= ({
+                            filter,
+                            text,
+                            className
+}: IHightlightByText) => {
 
-    if (!filter || !text) return <p>{text}</p>
+    if (!filter || !text) return <p>{text?.trim() || "Empty file"}</p>
 
     const regexp = new RegExp(filter, 'ig')
     const matchValue = text.match(regexp)
@@ -21,7 +26,7 @@ const HightlightByText= ({filter, text}: IHightlightByText) => {
                         return (
                             <>
                                 {textPert}
-                                <span style={{background: "yellow"}}>{textFound}</span>
+                                <span className={className}>{textFound}</span>
                             </>
                         )
                     }

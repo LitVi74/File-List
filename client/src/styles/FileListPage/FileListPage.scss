@@ -1,22 +1,5 @@
 @use '../colors';
-@use '../fonts';
 @use '../mixins';
-
-.main_section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  padding: 4rem;
-
-  font-family: fonts.$mainFont;
-  color: colors.$secondColor;
-}
-
-.title {
-  font-size: 3em;
-  margin-bottom: 1rem;
-}
 
 #add_file_input {
   opacity: 0;
@@ -25,18 +8,7 @@
 }
 
 .add_file_label {
-  width: min(70vw, 40rem);
-  padding: .5rem;
-  margin-bottom: 1rem;
-
-  border: 1px solid colors.$secondColor;
-  @include mixins.borderRadius(.5em);
-
-  text-align: center;
-
-  &:hover {
-    cursor: pointer;
-  }
+  @include mixins.input;
 }
 
 .file_list {

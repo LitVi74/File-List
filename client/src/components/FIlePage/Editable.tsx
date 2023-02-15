@@ -1,45 +1,55 @@
-import React, {useCallback, useEffect, useState} from "react";
-import HightlightByText from "./HightlightByText";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 
 interface IEditable {
     isEditingProps?: boolean,
     value?: string,
     callback?: (value: string) => void,
-    filter?: string;
+    children?: JSX.Element;
+    textClassName?: string;
+    textAreaClassName?: string;
 }
 
 const Editable = ({
     isEditingProps = false,
     value = "",
     callback,
-    filter
+    children,
+    textClassName,
+    textAreaClassName,
 }: IEditable) => {
     const [isEditing, setEditing] = useState<boolean>(isEditingProps);
     const [textareaValue, setTextareaValue] = useState<string>(value);
+    const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-    const handleDivBlur = useCallback(() => {
-        setEditing(!isEditing)
+    const handleTextAreaBlur = useCallback(() => {
+        setEditing(false)
         callback?.(textareaValue);
-    },[textareaValue])
+    },[textareaValue, callback])
 
-    useEffect(() => console.log(filter), [filter])
+    const handleDivClick = useCallback(() => {
+        setEditing(true);
+    },[])
+
+    useEffect(() => {
+        if (isEditing) textAreaRef.current?.focus()
+    }, [isEditing])
 
     return (
         <>
         {isEditing ? (
-                <div
-                    onBlur={handleDivBlur}
-                >
-                    <textarea
-                        onChange={(event) => setTextareaValue(event.currentTarget.value)}
-                        value={textareaValue}
-                    />
-                </div>
+                <textarea
+                    ref={textAreaRef}
+                    onBlur={handleTextAreaBlur}
+                    onChange={(event) => setTextareaValue(event.currentTarget.value)}
+                    value={textareaValue}
+                    className={textAreaClassName}
+                />
             ): (
                 <div
-                    onClick={() => setEditing(!isEditing)}
+                    className={textClassName}
+                    onClick={handleDivClick}
                 >
-                    <HightlightByText filter={filter} text={value}/>
+                    {children}
                 </div>
         )}
         </>

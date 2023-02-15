@@ -21,3 +21,23 @@
   background: url("./res/" + $imageName) center no-repeat;
   background-size: contain;
 }
+
+@mixin input() {
+  width: min(70vw, 40rem);
+  padding: .5rem;
+  margin-bottom: 1rem;
+
+  background-color: colors.$mineColor;
+
+  color: colors.$secondColor;
+  font-size: 1em;
+
+  border: 1px solid colors.$secondColor;
+  @include borderRadius(.5em);
+
+  text-align: center;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

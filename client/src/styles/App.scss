@@ -1,4 +1,5 @@
 @use 'colors';
+@use 'fonts';
 
 * {
   margin: 0;
@@ -12,5 +13,21 @@
 
   background-color: colors.$mineColor;
 
+  font-family: fonts.$mainFont;
+  color: colors.$secondColor;
+
   overflow-y: auto;
+}
+
+.main_section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 4rem;
+}
+
+.title {
+  font-size: 3em;
+  margin-bottom: 1rem;
 }
